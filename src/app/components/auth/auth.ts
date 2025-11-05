@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
+import { JwtService } from '../../services/jwt';
 
 
 @Component({
@@ -18,21 +19,45 @@ export class AuthComponent {
   user: User = {}
   erreur:string|null =null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private jwtService: JwtService) {}
   
   login(form: NgForm) {
-    if (this.user.username == 'user' && this.user.password == "user" ||
-      this.user.username == 'admin' && this.user.password == "admin" ||
-      this.user.username == 'sadmin' && this.user.password == "sadmin"
+    // if (this.user.username == 'user' && this.user.password == "user" ||
+    //   this.user.username == 'admin' && this.user.password == "admin" ||
+    //   this.user.username == 'sadmin' && this.user.password == "sadmin"
 
-    ) {
-      localStorage.setItem('isConnected', 'true')
-      localStorage.setItem('user', JSON.stringify(this.user))
-      const url = this.router.createUrlTree(['/adresse'], { queryParams: { ville: 'Marseille', codePostal: '13000' } })
-      this.router.navigateByUrl(url)
-    } else {
-      this.erreur = "Identifiants incorrects"
-    }
+    // ) {
+    //   this.jwtService.logIn(this.user, 'PASSWORD').subscribe(res => {
+    //     console.log(this.user)
+    //     console.log(res.accessToken)
+    //     console.log(res.refreshToken)
+    //     localStorage.setItem('token', JSON.stringify(res));
+    //   })
+    //   localStorage.setItem('isConnected', 'true')
+    //   localStorage.setItem('user', JSON.stringify(this.user))
+    //   // const url = this.router.createUrlTree(['/adresse'], { queryParams: { ville: 'Marseille', codePostal: '13000' } })
+    //   // this.router.navigateByUrl(url)
+    // } else {
+    //   this.erreur = "Identifiants incorrects"
+    // }
+
+    this.user.grantType = "PASSWORD";
+    this.jwtService.logIn(this.user).subscribe({
+      next: res => {
+        console.log(res)
+        localStorage.setItem('isConnected', 'true')
+        localStorage.setItem('accessToken', res.accessToken ?? '')
+        localStorage.setItem('refreshToken', res.refreshToken ?? '')
+        localStorage.setItem('user', JSON.stringify(this.user))
+        const url = this.router.createUrlTree(['/adresse'], { queryParams: { ville: 'Marseille', codePostal: '13000' } })
+        this.router.navigateByUrl(url)
+      },
+      error: err => {
+        console.log(err)
+        this.erreur = "Identifiants incorrects"
+      }      
+    })
+
 
   }
   // login(form: NgForm) {

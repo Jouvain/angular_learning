@@ -1,19 +1,16 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { User } from '../models/user';
+import { environment } from '../../environments/environment.development';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const user: User = JSON.parse(localStorage.getItem('user') ?? '')
-  const basic = btoa(`${user.username}:${user.password}`);
-  // const username = localStorage.getItem('username')
-  // const password = localStorage.getItem('password')
-  // // const basic = btoa('user:user');
-  // const basic = btoa(`${username}:${password}`);  
-  // console.log(basic)
-  // console.log(username)
-  // console.log(password)
-  const cloned = req.clone({
-    setHeaders: { Authorization: `Basic ${basic}` }
-  })
-  return next(cloned);
-  //return next(req);
+  if(req.url == `${environment.BACKEND_URL}/authenticate`) {
+    return next(req); 
+  } else {
+    const accessToken = localStorage.getItem('accessToken');
+    const cloned = req.clone({
+      setHeaders: { Authorization: `Bearer ${accessToken}` }
+    })
+    return next(cloned);
+  }
+  return next(req);
 };
