@@ -1,0 +1,31 @@
+<h2>PRIMEUR</h2>
+<p>Panier : {{total}} </p>
+
+<p>Nos produits :</p>
+<ul>
+    @for (p of produits; track $index) {
+        <!-- <app-produit [produit]="p" (sendCost)="recalculerTotal($event)" ></app-produit> -->
+        <app-produit [produit]="p" (sendCost)="recalculerTotal($event, $index)" ></app-produit>
+    }
+</ul>
+<button class="btn btn-danger" (click)="recalculerViaEnfants()" [disabled]="isActualizationDisabled">
+    Actualiser
+    <i class="fa-solid fa-rotate"></i>
+</button>
+
+<h3>ADMIN ONLY : ajout de produit</h3>
+<form [formGroup]="produitForm" (ngSubmit)="ajouterProduit()">
+    <div>
+        Nom <input type="text" formControlName="nom">
+    </div>
+    <div>
+        Quantité <input type="number" formControlName="quantite">
+    </div>
+    <div>
+        Prix <input type="number" formControlName="prix">
+    </div>
+    <button class="btn btn-primary">
+        Ajouter
+        <i class="fa-solid fa-plus"></i>
+    </button>
+</form>

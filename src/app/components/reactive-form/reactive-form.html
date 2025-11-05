@@ -1,0 +1,79 @@
+<h2>Reactive Forms module</h2>
+<h3>Ajouter une nouvelle personne</h3>
+<form [formGroup]="personneForm" (ngSubmit)="afficher()">
+    <div>
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" formControlName="nom">
+
+        @if(nom.errors) {
+        <span [hidden]="nom.valid || nom.pristine">
+            @if (nom.errors['vide']) {
+            {{ nom.errors['vide'] }}
+            } @else {
+            {{ nom.errors['majuscule'] }}
+            }
+        </span>
+        }
+    </div>
+    <div>
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" formControlName="prenom">
+        @if(prenom.errors) {
+        <span [hidden]="prenom.valid || prenom.pristine">
+            @if (prenom.errors['required']) {
+            Ce champ est obligatoire
+            } @else {
+            Ce champ doit commencer par une majuscule et contenir entre 3 et 30 lettres, espaces ou tirets
+            }
+        </span>
+        }
+    </div>
+    <div>
+        <label for="age">Âge</label>
+        <input type="number" id="age" formControlName="age">
+        @if(age.errors) {
+        <span [hidden]="age.valid || age.pristine">
+            Ce champ doit contenir une valeur supérieure ou égale à 15
+        </span>
+        }
+    </div>
+    <div formGroupName="adresse">
+        <h4>Adresse</h4>
+        <div>
+            <label for="rue">Rue</label>
+            <input type="text" id="rue" formControlName="rue">
+        </div>
+        <div>
+            <label for="ville">Ville</label>
+            <input type="text" id="ville" formControlName="ville">
+        </div>
+        <div>
+            <label for="codePostal">Code postal</label>
+            <input type="text" id="codePostal" formControlName="codePostal">
+        </div>
+    </div>
+    <div>
+        <button [disabled]="personneForm.invalid">
+            Afficher
+        </button>
+    </div>
+</form>
+<h3>Liste des personnes</h3>
+<ul>
+    @for (p of personnes; track $index) {
+    <li>
+        {{ p.prenom }} {{ p.nom }}
+    </li>
+    } @empty {
+    <li>Liste vide !</li>
+    }
+</ul>
+<!-- <div>
+    <label for="nom">Nom</label>
+    <input type="text" id="nom" [formControl]="nom">
+</div>
+<div>
+    <button (click)="afficherNom()">
+        Afficher
+    </button>
+</div> -->

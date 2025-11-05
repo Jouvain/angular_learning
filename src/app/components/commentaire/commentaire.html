@@ -1,0 +1,45 @@
+<h2 class="my-5 text-primary">Commentaire</h2>
+<h3 class="my-5 text-primary">Ajouter un commentaire</h3>
+<form [formGroup]="personneForm" (ngSubmit)="ajouterPersonne()">
+    <div>
+        Nom <input type="text" formControlName="nom">
+    </div>
+    <div>
+        Prénom <input type="text" formControlName="prenom">
+    </div>
+    <div formGroupName="commentaires">
+        <h3>Commentaires</h3>
+        <div>
+            <button type="button" (click)="ajouterCommentaire()" class="btn btn-secondary">
+                Nouveau commentaire
+            </button>
+        </div>
+        <div>
+            @for (commentaire of commentaires.controls; track commentaire) {
+            <div [formGroupName]="$index">
+                <input type="text" formControlName="titre" placeholder="titre">
+                <input type="text" formControlName="categorie" placeholder="catégorie">
+                <input type="text" formControlName="contenu" placeholder="contenu">
+            </div>
+            }
+        </div>
+    </div>
+    <button class="btn btn-primary">
+        Ajouter
+    </button>
+</form>
+<h3>Liste des commentaires</h3>
+<ul>
+    @for (p of personnes; track p) {
+    <li>{{ p.prenom }}
+        {{ p.nom }}
+        <ul>
+            @for(c of p.commentaires; track c) {
+            <li>
+                {{ c.titre }} {{ c.categorie }} {{ c.contenu }}
+            </li>
+            }
+        </ul>
+    </li>
+    }
+</ul>

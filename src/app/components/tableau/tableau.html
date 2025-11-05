@@ -1,0 +1,13 @@
+<h2 ngClass="my-5 text-primary">Tableau : [{{ numbers }}]</h2>
+
+<p>
+    <button ngClass="btn" (click)="precedent()">
+        <i class="fas fa-backward"></i>
+    </button>
+    <a [routerLink]="['/tableau', indicePrecedent]">Précédent</a>
+    {{ numbers[index] }}
+    <a [routerLink]="['/tableau', indiceSuivant]">Suivant</a>
+    <button ngClass="btn" (click)="suivant()">
+        <i class="fas fa-forward"></i>
+    </button>
+</p>

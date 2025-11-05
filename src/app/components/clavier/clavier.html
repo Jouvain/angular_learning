@@ -1,0 +1,12 @@
+<h2>CLAVIER VIRTUEL</h2>
+
+<textarea class="form-control text-area" [value]="textArea">
+
+</textarea>
+
+<div class="clavier">
+    @for (lettre of lettres; track $index) {
+        <app-touche [letter]=lettre (sendLetter)="actualiserTextArea($index)" />
+    }
+</div>
+

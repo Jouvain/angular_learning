@@ -1,0 +1,8 @@
+<h2 ngClass="my-5 text-primary">Calcul (récupération de query et params)</h2>
+@if (!erreur) {
+<p  ngClass="my-5 text-primary">
+    {{ value1 }} {{ operateur }} {{ value2 }} = {{ resultat }}
+</p>
+} @else {
+   <p ngClass="my-5 text-danger">{{ erreur }}</p> 
+}

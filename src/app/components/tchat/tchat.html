@@ -1,0 +1,23 @@
+
+<div>
+    <h2>Tchat & Tweet</h2>
+    <div>
+        <h3> Enter the Tchatting Room !</h3>
+        <form [formGroup]="participantForm" (ngSubmit)="ajouterParticipant()" >
+            Nom : <input type="text" formControlName="nom"/>
+            <button>
+                <i class="fa-solid fa-user-plus" ></i>
+            </button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Tchatteurs & Tweeters :</h3>
+        @for (p of participants; track $index) {
+            <app-participant [nom]="p.nom" />
+        } @empty {
+            <p>Aucun participant pour l'instant...</p>
+        }
+    </div>
+
+</div>

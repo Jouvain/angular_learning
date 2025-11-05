@@ -1,0 +1,264 @@
+<div>
+    <h2>Interpolation : &#123; &#123; &nbsp; &nbsp; &#125; &#125; </h2>
+    <h3>Interpoler un objet</h3>
+    <ul>
+        <li>{{ stagiaire.num }}</li>
+        <li>{{ stagiaire['nom'] }}</li>
+        <li>{{ stagiaire["prenom"] }}</li>
+    </ul>
+    <p>
+        Sans pipe : {{ stagiaire }}
+    </p>
+    <p>
+        Avec un pipe : {{ stagiaire | json }}
+    </p>
+    <p>
+        {{ stagiaire2.nom }}
+    </p>
+    <p>
+        {{ stagiaire2.prenom ?? 'Prénom indéfini' }}
+    </p>
+    <h3>Interpoler un tableau</h3>
+    <ul>
+        <li>{{ numbers[0] }}</li>
+        <li>{{ numbers["1"] }}</li>
+        <li>{{ numbers['2'] }}</li>
+    </ul>
+    <p>[{{ numbers }}]</p>
+    <h3>Interpoler une méthode</h3>
+    <p>
+        {{ direBonjour() }}
+    </p>
+    <h2>Property Binding : []</h2>
+    <p>{{ title }}</p>
+    <p [textContent]="title" [id]="monId"></p>
+    <h2>Event Binding : ()</h2>
+    <div>
+        <button (click)="alertBonjour()">
+            cliquer
+        </button>
+    </div>
+    <div>
+        <button [disabled]="isDisabled" (click)="switchState()">Bouton 1</button>
+        <button [disabled]="!isDisabled" (click)="switchState()">Bouton 2</button>
+    </div>
+    <h3>event</h3>
+    <div>
+        <label for="texte">Votre texte</label>
+        <input type="text" id="texte" (input)="afficherTexte($event)">
+    </div>
+    <h2>Control Flow Syntax : Angular 17</h2>
+    <h3>for</h3>
+    <ul>
+        @for (item of numbers; track $index) {
+        <li>{{ $index }} : {{ item }}</li>
+        }
+    </ul>
+    <ul>
+        @for (item of numbers; let i = $index; track i) {
+        <li>{{ i }} : {{ item }}</li>
+        }
+    </ul>
+    <ul>
+        @for (item of numbers; let i = $index; track i) {
+        <li>{{ i }} : {{ item }} : {{ $first }} : {{ $last }} : {{ $even }} : {{ $odd }} </li>
+        } @empty {
+        <li>Liste vide :)</li>
+        }
+    </ul>
+    <ul>
+        @for (st of stagiaires; track st.num) {
+        <li>
+            {{ st.prenom }} {{ st.nom }}
+        </li>
+        }
+    </ul>
+    <ul>
+        @for (elt of stagiaire | keyvalue; track elt.key) {
+        <li>
+            {{ elt.key }} : {{ elt.value }}
+        </li>
+        }
+    </ul>
+    <ul>
+        @for (st of stagiaires; track st.num) {
+        <li>
+            @for (elt of st | keyvalue; track elt.key) {
+            {{ elt.value }}
+            }
+        </li>
+        }
+    </ul>
+    <h3>if-else</h3>
+    @if (numbers[0] % 2 == 0) {
+    <p>
+        {{ numbers[0] }} est pair
+    </p>
+    }
+    @if (numbers[1] % 2 == 0) {
+    <p>
+        {{ numbers[1] }} est pair
+    </p>
+    } @else {
+    <p>
+        {{ numbers[1] }} est impair
+    </p>
+    }
+    <ul>
+        @for (item of numbers; track $index) {
+        <li>
+            {{ item }}
+            @if(item % 2 == 0) {
+            est pair
+            } @else {
+            est impair
+            }
+        </li>
+        }
+    </ul>
+
+    <ul>
+        @for (moy of moyennes; track $index) {
+        <li>
+            {{ moy }}
+            @if(moy> 0 && moy < 10) { échec } @else if (moy < 13 ) { moyen } @else if (moy < 16 ) { bien } @else { très
+                bien } </li>
+                }
+    </ul>
+    <ul>
+        @for (item of numbers; track $index) {
+        <li>{{ item }}
+            @switch (item) {
+            @case (1) {
+            un
+            }
+            @case (2) {
+            deux
+            }
+            @case (3) {
+            trois
+            }
+            @case (4) {
+            quatre
+            }
+            @default {
+            autre
+            }
+            }
+        </li>
+        }
+    </ul>
+    <h3>Syntaxe précédente (Avant Angular 17, actuellement dépréciée)</h3>
+    <ul>
+        <li *ngFor="let elt of numbers"> {{ elt }}</li>
+    </ul>
+    <h2>Directives d'attribut</h2>
+    <h3>ngStyle</h3>
+    <p [ngStyle]="{color: couleur, backgroundColor: bgCouleur}">
+        {{ title }}
+    </p>
+    <p [ngStyle]="style">
+        {{ title }}
+    </p>
+    <h3>ngClass</h3>
+    <p [ngClass]="{ rouge: title.startsWith('a')}">
+        {{ title }}
+    </p>
+    <p [ngClass]="{ 
+    rouge: title.startsWith('b'),
+    bleu: title.startsWith('a')
+    }">
+        {{ title }}
+    </p>
+    <p [ngClass]="{ 
+    rouge: title.startsWith('b'),
+    bleu: title.startsWith('a'),
+    gras: title.length > 0
+    }">
+        {{ title }}
+    </p>
+    <p ngClass="bleu">
+        {{ title }}
+    </p>
+    <p [ngClass]="title.startsWith('a') ? 'bleu' : 'rouge'">
+        {{ title }}
+    </p>
+    <ul>
+        @for (v of numbers; track $index) {
+        <li [ngClass]="v % 2 == 0 ? 'rouge' : 'bleu'">
+            {{ v }}
+        </li>
+        }
+    </ul>
+    <!-- le premier élément et le dernier en blanc sur un fond bleu,-->
+    <!-- le reste en blanc sur fond rouge -->
+    <ul>
+        @for (item of numbers; track $index) {
+        <li [ngClass]="$last || $first ? 'bleu-blanc' : 'rouge-blanc'">
+            {{ item }}
+        </li>
+        }
+    </ul>
+    <h2>Liens</h2>
+    <h3>Lien avec params</h3>
+    <p>
+        <a [routerLink]="['/stagiaire', stagiaire.nom, stagiaire.prenom]">
+            En savoir plus sur Wick
+        </a>
+    </p>
+    <h3>Lien avec query</h3>
+    <p>
+        <a routerLink="/adresse" [queryParams]="{ codePostal: cp, ville: ville}">
+            En savoir plus sur Lille
+        </a>
+    </p>
+    <h3>Leien avec query et params</h3>
+    <p>
+        <a [routerLink]="['/calcul', 'plus']" [queryParams]="{ value1: 1, value2: 2}">
+            En savoir plus sur Calcul
+        </a>
+    </p>
+    <h2>Redirection</h2>
+    <div>
+        <button ngClass="btn btn-primary" (click)="goToStagiaire()">
+            En savoir plus sur Wick
+        </button>
+    </div>
+    <div>
+        <button ngClass="btn btn-primary" (click)="goToLyon()">
+            En savoir plus sur Lyon
+        </button>
+    </div>
+    <h2>Pipes</h2>
+    <h3>Pipes prédéfinis</h3>
+    <p>
+        {{ title | uppercase }}
+    </p>
+    <p>
+        {{ title | slice:1:3 }}
+    </p>
+    <p>
+        {{ aujourdhui | date:'d MMM y' }}
+    </p>
+    <p>
+        c'est possible d'enchaîner les pipes :
+        {{ aujourdhui | date:'d MMM y' | uppercase}}
+    </p>
+    <h3>Pipes personnalisés</h3>
+    <p>
+        {{ title | getchar }}
+    </p>
+    <p>
+        {{ title | getchar:2 }}
+    </p>
+    <ul>
+        @for (item of numbers | evenvalue ; track $index) {
+        <li>{{ item }}</li>
+        }
+    </ul>
+    <ul>
+        <li>[{{ title | strtoarray }}]</li>
+        <li>[{{ title | strtoarray:8 }}]</li>
+        <li>[{{ title | strtoarray:8:13 }}]</li>
+    </ul>
+</div>

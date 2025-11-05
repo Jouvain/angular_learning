@@ -1,0 +1,11 @@
+
+<div>
+    <h2>Messages reçus :</h2>
+    <ul >
+        @for (m of messages; track $index) {
+            <li>{{m}}</li>
+        } @empty {
+            <li>Liste vide...</li>
+        }
+    </ul>
+</div>

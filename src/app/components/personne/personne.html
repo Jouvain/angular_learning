@@ -1,0 +1,56 @@
+<h2>Gestion de personnes</h2>
+<h3>Ajouter une nouvelle personne</h3>
+<app-form-personne [(personne)]="personne" (sendPersonne)="ajouter($event)" />
+<!-- <form (ngSubmit)="ajouter(form)" #form="ngForm">
+    <div>
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" [(ngModel)]="personne.nom" name="nom" required minlength="2" #nom="ngModel">
+        <span [hidden]="nom.valid || nom.pristine">
+            Le nom est obligatoire
+        </span>
+    </div>
+    <div>
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" [(ngModel)]="personne.prenom" name="prenom" required minlength="2"
+            #prenom="ngModel">
+        <span [hidden]="prenom.valid || prenom.pristine">
+            Le prénom est obligatoire
+        </span>
+    </div>
+    <div>
+        <label for="age">Âge</label>
+        <input type="number" id="age" [(ngModel)]="personne.age" name="age" required min="15" max="150" #age="ngModel">
+        <span [hidden]="age.valid || age.pristine">
+            L'âge est obligatoire
+        </span>
+    </div>
+    <div>
+        <button ngClass="btn btn-primary" [disabled]="form.invalid">
+            Ajouter
+        </button>
+    </div>
+</form> -->
+<h3>Liste des personnes</h3>
+@if(!erreur) {
+    <ul>
+        @for (p of personnes; track $index) {
+        <li>
+            {{ p.prenom }} {{ p.nom }}
+            <a [routerLink]="['/personne',p.id]">
+                <i class="fa-solid fa-circle-user text-primary"></i>
+            </a>
+            <button class="text-danger btn" (click)="supprimer($index, p.id)">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        </li>
+        } @empty {
+        <li>Liste vide !</li>
+        }
+    </ul>
+} @else { 
+    <div class="container my-5">
+        <div class="row alert alert-danger  d-flex justify-content-center align-items-center">
+            {{erreur}}
+        </div>
+    </div>
+}

@@ -1,12 +1,16 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MenuComponent } from "./components/menu/menu";
+import { HeaderComponent } from "./components/header/header";
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
+  imports: [RouterModule, MenuComponent, HeaderComponent]
 })
 export class App {
-  protected readonly title = signal('cours-angular');
+
+  
 }

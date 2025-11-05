@@ -1,0 +1,22 @@
+<div>
+    <h4>{{nom}}</h4>
+
+    <div>
+        <p>Message :</p>
+        <input type="text" [(ngModel)]="message" class="form-control" />
+        <button class="btn btn-primary" (click)="envoyer()" >
+            Envoyer
+        </button>
+    </div>
+
+    <div>
+        <p>Messages reçus :</p>
+        <ul >
+            @for (m of messages; track $index) {
+                <li>{{m}}</li>
+            } @empty {
+                <li>Liste vide...</li>
+            }
+        </ul>
+    </div>
+</div>

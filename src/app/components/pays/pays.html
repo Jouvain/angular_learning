@@ -1,0 +1,15 @@
+<h2>PAYS</h2>
+<h3>Liste des villes</h3>
+<div>
+    @for (ville of villes; track $index) {
+        <p>{{ville}}</p>
+    }
+</div>
+
+<h3>Les villes en Input</h3>
+<!-- @for (ville of villes; track $index) {
+    <app-ville [ville]="ville" (sendCity)="changerVilleSelonIndex($event, $index)" />
+} -->
+@for (ville of villes; track $index) {
+    <app-ville [(ville)]="villes[$index]"  />
+}

@@ -1,0 +1,31 @@
+
+<div class="container d-flex flex-column align-items-center  vh-100">
+    <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">Authentification</h2>
+
+        <form (ngSubmit)="login(form)"   #form="ngForm">
+            <div class="col-12" >
+                <label for="username">Nom :</label>
+                <input type="text" id="username" [ngModel]="username"  name="username" required minlength="2" class="mb-3"  >
+            </div>
+            <div class="col-12" >
+                <label for="password">Mot de passe :</label>
+                <input type="text" id="password" [ngModel]="password" name="password" required="" class="mb-3">
+            </div>
+            <div class="text-center">
+            <button class="btn btn-primary w-100">
+                Se connecter
+                <i class="fa-solid fa-right-to-bracket"></i>
+            </button>
+            </div>
+
+        </form>
+        @if (isWrong) {
+            <div class="alert alert-danger mt-3 text-center">
+                <h3> ! ERREUR ! </h3>
+                <p>Identifiants non reconnus</p>
+            </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,8 @@
+<li>
+{{produit.nom}}, {{produit.quantite}} pièces : {{produit.prix}}€
+<input type="number" [(ngModel)]="nbrAdded">
+<button class="btn" (click)="ajouterAuPanier()" [disabled]="isDisabled" >
+    <i class="fa-solid fa-cart-plus"></i>
+</button>  
+</li>
+

@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <h1 ngClass="h2 text-primary my-5">Calculette</h1>
+    </div>
+    <form #form="ngForm">
+        {{ form.invalid }}
+        <div class="row">
+            <div class="my-5 row">
+                <label for="valeur1" class="col-sm-2 col-form-label text-primary">
+                    Valeur 1
+                </label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="valeur1" [(ngModel)]="valeur1" name="valeur1" required>
+                </div>
+            </div>
+            <div class="my-5 row">
+                <label for="valeur2" class="col-sm-2 col-form-label text-primary">
+                    Valeur 2
+                </label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="valeur2" [(ngModel)]="valeur2" name="valeur2" required>
+                </div>
+            </div>
+            <div class="my-5 row">
+                <button class="btn col-3 text-primary" (click)="compute('+')" [disabled]="form.invalid"><i class="fa-solid fa-plus"></i></button>
+                <button class="btn col-3 text-primary" (click)="compute('-')" [disabled]="form.invalid"><i
+                        class="fa-solid fa-minus"></i></button>
+                <button class="btn col-3 text-primary" (click)="compute('*')" [disabled]="form.invalid"><i
+                        class="fa-solid fa-times"></i></button>
+                <button class="btn col-3 text-primary" (click)="compute('/')" [disabled]="form.invalid"><i
+                        class="fa-solid fa-divide"></i></button>
+            </div>
+            @if (!erreur) {
+            <div class="row alert alert-primary">
+                {{ resultat }}
+            </div>
+            } @else {
+            <div class="row alert alert-danger">
+                {{ erreur }}
+            </div>
+            }
+
+        </div>
+    </form>
+</div>

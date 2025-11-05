@@ -1,0 +1,21 @@
+<h2>Père/fils : {{ pays ?? 'apatride' }}</h2>
+<app-fils ville="{{ ville }}" (sendPays)="afficherPays($event)" >{{ nom }}</app-fils> 
+<app-fils [ville]="ville">{{ nom }}</app-fils> 
+<app-fils></app-fils>
+
+<h3>Exo Listes 1</h3>
+@for (item of noms; track $index) {
+    @if ($index >= villes.length) {
+       <app-fils>{{item}}</app-fils> 
+    } @else {
+        <app-fils [ville]="villes[$index]" >{{item}}</app-fils>
+    }
+}
+
+<h3>ViewChild</h3>
+<button class="btn btn-danger" (click)="espionner()">
+    Espionner le premier enfant
+</button>
+<button class="btn btn-danger" (click)="espionnerTous()">
+    Espionner les enfants
+</button>

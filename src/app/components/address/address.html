@@ -1,0 +1,11 @@
+<h2>Address</h2>
+<ul>
+    <li>Ville : {{ ville }}</li>
+    <li>Code postal : {{ cp }}</li>
+</ul>
+
+<p>
+    <a routerLink="/address" [queryParams]="{ codePostal: '33000', ville: 'Bordeaux'}">
+        Visitez Bordeaux
+    </a>
+</p>
