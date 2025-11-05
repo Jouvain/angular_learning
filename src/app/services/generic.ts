@@ -6,7 +6,7 @@ export abstract class GenericService<T> {
     constructor(protected http: HttpClient, protected path: string) { }
 
     findAll(): Observable<T[]> {
-        return this.http.get<T[]>(`${environment.BACKEND_URL}/${this.path}`);
+        return this.http.get<T[]>(`${environment.BACKEND_URL}/${this.path}`, {headers: {"Authorization": "Basic dXNlcjp1c2Vy"}});
     }
 
     findById(id: number): Observable<T> {

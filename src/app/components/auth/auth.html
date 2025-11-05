@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="container d-flex flex-column align-items-center  vh-100">
     <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
         <h2 class="text-center mb-4">Authentification</h2>
@@ -6,11 +6,11 @@
         <form (ngSubmit)="login(form)"   #form="ngForm">
             <div class="col-12" >
                 <label for="username">Nom :</label>
-                <input type="text" id="username" [ngModel]="username"  name="username" required minlength="2" class="mb-3"  >
+                <input type="text" id="username" [(ngModel)]="username"  name="username" required minlength="2" class="mb-3"  >
             </div>
             <div class="col-12" >
                 <label for="password">Mot de passe :</label>
-                <input type="text" id="password" [ngModel]="password" name="password" required="" class="mb-3">
+                <input type="text" id="password" [(ngModel)]="password" name="password" required="" class="mb-3">
             </div>
             <div class="text-center">
             <button class="btn btn-primary w-100">
@@ -28,4 +28,28 @@
         }
     </div>
 </div>
+ -->
 
+
+<h2>Page d'authentification</h2>
+<form (ngSubmit)="login(form)" #form="ngForm">
+    <div>
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" id="username" [(ngModel)]="user.username" name="username">
+    </div>
+    <div>
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" [(ngModel)]="user.password" name="password">
+    </div>
+
+    <div>
+        <button class="btn">
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </button>
+    </div>
+</form>
+@if (erreur) {
+<div class="row alert alert-danger">
+    {{ erreur }}
+</div>
+}

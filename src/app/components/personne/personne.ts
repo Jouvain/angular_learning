@@ -11,7 +11,7 @@ import { FormPersonneComponent } from "../form-personne/form-personne";
   templateUrl: './personne.html',
   styleUrl: './personne.css'
 })
-export class PersonneComponent implements OnInit, DoCheck {
+export class PersonneComponent implements OnInit {
   personne: Personne = {}
   personnes: Personne[] = []
   erreur: string | null = null
@@ -28,9 +28,9 @@ export class PersonneComponent implements OnInit, DoCheck {
     });
   }
 
-  ngDoCheck(): void {
-    this.ps.findAll().subscribe(res => this.personnes = res);
-  }
+  // ngDoCheck(): void {
+  //   this.ps.findAll().subscribe(res => this.personnes = res);
+  // }
 
   ajouter(personne:Personne) {
     // this.personnes.push({ ...this.personne });
