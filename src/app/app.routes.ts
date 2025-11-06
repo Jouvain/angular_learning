@@ -27,6 +27,8 @@ import { ContainerComponent } from './components/container/container';
 import { TchatComponent } from './components/tchat/tchat';
 import { AuthComponent } from './components/auth/auth';
 import { authGuard } from './guards/auth-guard';
+import { CompteurComponent } from './components/compteur/compteur';
+import { PanierComponent } from './components/panier/panier';
 
 
 // Avant Angular 19, app-routing.module.ts
@@ -65,6 +67,8 @@ export const routes: Routes = [
     { path: 'container', component: ContainerComponent },
     { path: 'tchat', component: TchatComponent },   
     { path: 'auth', component: AuthComponent },  
+    { path: 'compteur', component: CompteurComponent},
+    { path: 'panier', component: PanierComponent},
     { path: '**', component: NotFoundComponent },
 
 ];

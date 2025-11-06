@@ -45,6 +45,8 @@ export class AuthComponent {
     this.jwtService.logIn(this.user).subscribe({
       next: res => {
         console.log(res)
+        this.jwtService.isValid(res.accessToken ?? '' );
+        console.log(this.jwtService.isValid(res.accessToken ?? '' ))
         localStorage.setItem('isConnected', 'true')
         localStorage.setItem('accessToken', res.accessToken ?? '')
         localStorage.setItem('refreshToken', res.refreshToken ?? '')

@@ -1,0 +1,22 @@
+<h2>PANIER</h2>
+<div>
+    <h3>Liste de vos articles</h3>
+    @if (produits.length > 0) {
+    <ul>
+        @for (p of produits; track $index) {
+        <li>
+            {{p.nom}} à {{p.prix}} € : {{p.quantite}} pièces
+            <button (click)="supprimerArticle($index)">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </li>
+        }
+    </ul>
+    <button (click)="purgerPanier()" >
+        PURGE
+    </button>
+
+    } @else {
+    <p>votre panier est vide...</p>
+    }
+</div>

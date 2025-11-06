@@ -1,0 +1,21 @@
+<h2 class="text-primary"> Compteur </h2>
+<div class="compteur">
+    <button class="btn btn-primary" (click)="plus()">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+    <p>
+        {{number}}
+    </p>
+    <button class="btn btn-primary" (click)="moins()">
+        <i class="fa-solid fa-minus"></i>
+    </button>
+</div>
+<div class="compteur">
+    <button class="btn btn-primary"  (click)="plusNombre(chosenNumber)">
+        Ajouter
+    </button>
+    <input type="number" [(ngModel)]="chosenNumber" />
+    <button class="btn btn-primary"  (click)="reinitialiser()">
+        Réinitialiser
+    </button>
+</div>

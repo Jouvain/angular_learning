@@ -2,6 +2,11 @@ import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ProduitComponent } from '../produit/produit';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Produit } from '../../models/produit';
+import { Store } from '@ngrx/store';
+// import { selectValeurPanier } from '../../store/produit/produit.selector';
+import { ajout } from '../../store/produit/produit.action';
+import { selectProduits } from '../../store/produit/produit.selector';
+import { subscribeOn } from 'rxjs';
 
 @Component({
   selector: 'app-primeur',
@@ -19,17 +24,20 @@ export class PrimeurComponent {
     {nom: "fraises \u{1F353}", prix: 10, quantite: 20},
     {nom: "poivrons \u{1FAD1}", prix: 5, quantite: 10}
   ]
+  panier: Produit[] = [];
 
   produitForm: FormGroup
   total:number = 0;
   isActualizationDisabled = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store) {
     this.produitForm = this.fb.group({
       nom: "",
       prix: 0,
       quantite: 0
     });
+    // store.select(selectValeurPanier).subscribe(v => this.total = v);
+    store.select(selectProduits).subscribe(productList => this.panier = productList);
   }
 
   // ------------- METHODES -----------------------
@@ -52,6 +60,13 @@ export class PrimeurComponent {
     if(this.produits[index].quantite) {
       this.produits[index].quantite -= nbrAdded;
     }
+    // this.store.dispatch(ajout({value: nbrAdded}));
+    let commande: Produit = {
+      nom: this.produits[index].nom,
+      prix: this.produits[index].prix,
+      quantite: nbrAdded
+    }
+    this.store.dispatch(ajout({produit: commande}));
   }
 
   public recalculerViaEnfants() {
